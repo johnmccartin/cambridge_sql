@@ -220,6 +220,7 @@ CREATE INDEX assessing2015_agg_vals_ml_idx
   ON john.assessing2015_agg_vals
   USING btree (maplot_asr);
 
+--maplot is not unique, therefore primary key genereation doesn't work. debug maplot?
 ALTER TABLE john.assessing2015_agg_vals
   ADD CONSTRAINT assessing2015_agg_vals_pkey PRIMARY KEY USING INDEX assessing2015_agg_vals_ml_idx;
 
@@ -258,7 +259,8 @@ CREATE TABLE john.abp_val AS
     Sum(asr.imp_val) imp_val,
     Sum(asr.res_val) res_val,
     Sum(asr.nonres_val) nonres_val,
-    Sum(asr.total_val) total_val
+    Sum(asr.total_val) total_val,
+    bool_or(asr.cha)
   FROM john.assessing_buildout_parceling abp
   LEFT JOIN john.assessing2015_agg_vals asr
   ON asr.maplot_asr IN (
