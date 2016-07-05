@@ -215,6 +215,13 @@ CREATE TABLE john.assessing2015_agg_vals AS
   GROUP BY maplot;
 --); -- /WITH
 
+DROP INDEX IF EXISTS assessing2015_agg_vals_ml_idx;
+CREATE INDEX assessing2015_agg_vals_ml_idx
+  ON john.assessing2015_agg_vals
+  USING btree (maplot_asr);
+
+ALTER TABLE john.assessing2015_agg_vals
+  ADD CONSTRAINT assessing2015_agg_vals_pkey PRIMARY KEY USING INDEX assessing2015_agg_vals_ml_idx;
 
 
 /* ===================================================
@@ -265,11 +272,6 @@ DROP INDEX IF EXISTS abp_val_geom_idx;
 CREATE INDEX abp_val_geom_idx
   ON john.abp_val
   USING gist (geom);
-
-DROP INDEX IF EXISTS abp_val_ml_idx;
-CREATE INDEX abp_val_ml_idx
-  ON john.abp_val
-  USING btree (maplot);
 
 
 /* ===================================================
