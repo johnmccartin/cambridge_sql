@@ -1,7 +1,13 @@
+
+
+
+
 /* ===================================================
 
   Join the buildout data to <abp> - the buildout
-  geoms with assessors maplots joined to it.
+  geoms with assessors maplots joined to it. No
+  aggregates needed, since the gfa dataset is a 1-to-1
+  join with the buildout parcel geoms.
 
 ==================================================== */
 
@@ -135,7 +141,16 @@ UPDATE john.assessing2015_agg2
   SET nonres_val = imp_val
   WHERE rescode = 'NR';
 
+/* ===================================================
+    Add boolean for CHA parcels.
+=================================================== */
 
+ALTER TABLE john.assessing2015_agg2 agg
+  ADD COLUMN cha BOOLEAN NOT NULL DEFAULT FALSE;
+
+UPDATE john.assessing2015_agg2 agg
+  cha = TRUE
+  WHERE (ARRAY['970','9701','9703','9705']::bpchar[]) && (use_code);
 
 
 
