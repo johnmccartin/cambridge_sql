@@ -145,11 +145,11 @@ UPDATE john.assessing2015_agg2
     Add boolean for CHA parcels.
 =================================================== */
 
-ALTER TABLE john.assessing2015_agg2 agg
+ALTER TABLE john.assessing2015_agg2
   ADD COLUMN cha BOOLEAN NOT NULL DEFAULT FALSE;
 
-UPDATE john.assessing2015_agg2 agg
-  cha = TRUE
+UPDATE john.assessing2015_agg2
+  SET cha = TRUE
   WHERE (ARRAY['970','9701','9703','9705']::bpchar[]) && (use_code);
 
 
