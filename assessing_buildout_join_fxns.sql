@@ -266,6 +266,10 @@ CREATE INDEX abp_val_geom_idx
   ON john.abp_val
   USING gist (geom);
 
+DROP INDEX IF EXISTS abp_val_ml_idx;
+CREATE INDEX abp_val_ml_idx
+  ON john.abp_val
+  USING btree (maplot);
 
 
 /* ===================================================
