@@ -203,7 +203,8 @@ CREATE TABLE john.assessing2015_agg_vals AS
     Sum(total_val) total_val,
     Sum(imp_val) imp_val,
     Sum(res_val) res_val,
-    Sum(nonres_val) nonres_val
+    Sum(nonres_val) nonres_val,
+    bool_or(cha) cha
     --array_agg(loc) loc,
     --array_agg(use_code) use_code,
     --array_agg(bldg_stories) bldg_stories_asr,
@@ -264,6 +265,7 @@ DROP INDEX IF EXISTS abp_val_geom_idx;
 CREATE INDEX abp_val_geom_idx
   ON john.abp_val
   USING gist (geom);
+
 
 
 /* ===================================================
